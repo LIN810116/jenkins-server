@@ -56,6 +56,11 @@ Installation steps
       Unlock Jenkins page
 
 #. Click **Install suggested plugins**. Once the plugins have been installed, click **Continue**
+
+   .. note::
+
+      It's OK if some of the plugins not installed successfully because they might not be needed. You can always install them later from the plugin management page.
+
 #. Create the first Admin user, then click **Save and Continue**
 
    .. figure:: ./_static/images/create_first_admin.PNG

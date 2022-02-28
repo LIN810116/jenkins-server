@@ -164,9 +164,13 @@ Adding webhook to GitHub repository
 
 #. From the **Settings** page of your GitHub repository, click **Webhooks** from the left menu
 #. In the **Payload URL** field, enter jenkins' host URL and port number followed by **/github-webhook/**. E.g. ``http://HOST_IP:8080/github-webhook/``
+
+   .. important::
+
+      Make sure the URL is publicly accessible. Otherwise you can still manually do the build from Jenkins instead of automatically triggered by GitHub
+
 #. In **Content type**, choose application/json
 #. In **Which events would you like to trigger this webhook?**, choose **Let me select individual events**, then select the events you want. E.g. select **Pull Requests** and **Pushes**
 #. At the bottom of the page, make sure the **Active** option is selected
 #. Click **Add webhook**
-
 

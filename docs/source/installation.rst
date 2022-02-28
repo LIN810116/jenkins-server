@@ -25,7 +25,7 @@ Installation steps
 
    .. code-block:: bash
 
-      docker run -u root -p 8080:8080 -p 50000:50000 -v jenkins_server:/var/jenkins_home clin864/jenkins
+      sudo docker run -u root -p 8080:8080 -p 50000:50000 -v jenkins_server:/var/jenkins_home clin864/jenkins
 
    .. note::
 

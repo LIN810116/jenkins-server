@@ -1,0 +1,3 @@
+ssh-agent:latest
+ssh-credentials:latest
+ssh-slaves:latest

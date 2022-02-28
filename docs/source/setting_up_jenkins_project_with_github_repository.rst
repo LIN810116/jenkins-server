@@ -4,8 +4,8 @@ Setting up Jenkins project with GitHub repository
 
 A template repository can be downloaded from :download:`here <./_static/template-project.zip>`
 
-Adding SSH key for private repository
-=====================================
+Adding SSH key
+==============
 
 #. Run ``ssh-keygen`` command to generate the ssh key pair.
 #. Adding ssh public key to GitHub repository. See `the the Deploy keys setup instructions <https://docs.github.com/en/developers/overview/managing-deploy-keys#setup-2>`_ (you can skip the first step)
@@ -139,7 +139,7 @@ Setting up CI/CD pipeline
    #. Environment variables:
 
       * **REMOTE_URL**: github repository URL
-      * **CREDENTIAL_ID**: only needed for private repository. use the credential you created in :ref:`Adding SSH key for private repository`
+      * **CREDENTIAL_ID**: use the credential you created in :ref:`Adding SSH key`
       * **BRANCH**: branch name
       * **USER_NAME**: Github username
       * **USER_EMAIL**: Github email

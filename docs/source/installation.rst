@@ -2,7 +2,9 @@
 Installation
 ============
 
-The jenkins-server is pre-built and stored as a docker image. It can now be download from Docker Hub - an online Docker image repository.
+The jenkins-server is pre-built and stored as a Docker image. It can now be download from Docker Hub (an online Docker image repository) `here <https://hub.docker.com/repository/docker/clin864/jenkins-server>`_.
+
+This documentation shows how to get and install the jenkins-server Docker image.
 
 Prerequisites
 =============
@@ -12,7 +14,7 @@ Prerequisites
 Installation steps
 ==================
 
-#. Pull the Docker image from Docker Hub
+#. Pull the jenkins-server Docker image from Docker Hub
 
    .. code-block:: bash
 
@@ -29,11 +31,14 @@ Installation steps
 
    .. note::
 
-      By default, the web server will be hosted on port 8080. You can also reset host port (-p HOST_PORT:CONTAINER_PORT) if needed.
-      This command will also automatically create a docker volume named ``jenkins_server`` on the host machine if not exists.
-      Docker volumes retain their content even when the container is stopped, started, or deleted.
+      By default, the web server will be hosted on port 8080 so you can visit it via http://localhost:8080/.
+      You can also reset host port (-p HOST_PORT:CONTAINER_PORT) if needed.
 
-#. The first time you run the image, you will see a message printed on the terminal like this:
+      This command will automatically create a Docker volume named ``jenkins_server`` on the host machine if not exists.
+      It is used to retain contents even when the container is stopped, restarted, or deleted.
+      You can run ``sudo docker volume inspect jenkins_home`` to get the mountpoint of the volume in your host machine.
+
+#. The first time you start jenkins-server, you will see a message printed on the terminal like this:
 
    .. code-block:: text
 
@@ -72,3 +77,7 @@ Installation steps
 
 #. In the **Instance Configuration** page, use the default settings and click **Save and Finish**
 #. Click the **Restart** button to restart the server and apply the new setups
+
+   .. important::
+
+      You might need to refresh the page to be redirected to the login page

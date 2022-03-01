@@ -9,7 +9,7 @@ It allows you to run not only automation jobs, but also the continuous integrati
 - `Documentation <https://lin810116.github.io/jenkins-server/#>`_
 
 
-.. figure:: ./_static/images/jenkins_pipeline.PNG
+.. figure:: ./_static/images/jenkins_pipeline.png
       :align: center
 
       Jenkins pipeline

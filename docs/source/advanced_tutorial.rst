@@ -16,5 +16,5 @@ Below is a list of the pre-installed Python versions that you can use.
 * 3.9.10
 
 The default system Python version is 3.9.10.
-You can switch the version by adding/setting the environment variable ``PYENV_VERSION`` to any version on the list in your pipeline script/Jenkinsfile.
-E.g. PYENV_VERSION=3.6.15
+You can switch to any version on the list by adding the environment variable ``PYENV_VERSION`` to the environment section in your pipeline script/Jenkinsfile and setting it to be the version of your preference.
+E.g. ``PYENV_VERSION = '3.6.15'``

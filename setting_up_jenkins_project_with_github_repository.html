@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setting up Jenkins project with GitHub repository &mdash; jenkins-server  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Starting jenkins-server" href="starting_jenkins_server.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> jenkins-server
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="starting_jenkins_server.html">Starting jenkins-server</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setting up Jenkins project with GitHub repository</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-ssh-key">Adding SSH key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-a-jenkins-project">Creating a Jenkins project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-ci-cd-pipeline">Setting up CI/CD pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-webhook-to-github-repository">Adding webhook to GitHub repository</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">jenkins-server</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Setting up Jenkins project with GitHub repository</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/setting_up_jenkins_project_with_github_repository.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setting-up-jenkins-project-with-github-repository">
+<h1>Setting up Jenkins project with GitHub repository<a class="headerlink" href="#setting-up-jenkins-project-with-github-repository" title="Permalink to this headline"></a></h1>
+<p>A template repository can be downloaded from <a class="reference download internal" download="" href="_downloads/ec415539c2ff1ced4c293d7a96bd18d5/template-project.zip"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+<section id="adding-ssh-key">
+<span id="id1"></span><h2>Adding SSH key<a class="headerlink" href="#adding-ssh-key" title="Permalink to this headline"></a></h2>
+<ol class="arabic simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">ssh-keygen</span></code> command to generate the ssh key pair.</p></li>
+<li><p>Adding ssh public key to GitHub repository. See <a class="reference external" href="https://docs.github.com/en/developers/overview/managing-deploy-keys#setup-2">the the Deploy keys setup instructions</a> (you can skip the first step)</p></li>
+<li><p>Adding ssh private key to Jenkins global credentials. See <a class="reference external" href="https://www.jenkins.io/doc/book/using/using-credentials/#adding-new-global-credentials">Adding new global credentials</a></p></li>
+</ol>
+</section>
+<section id="creating-a-jenkins-project">
+<h2>Creating a Jenkins project<a class="headerlink" href="#creating-a-jenkins-project" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p>From the Jenkins Dashboard, click <strong>New Item</strong></p>
+<figure class="align-center" id="id2">
+<img alt="_images/dashboard_new_item.PNG" src="_images/dashboard_new_item.PNG" />
+<figcaption>
+<p><span class="caption-text">Dashboard - new item</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Enter a name for the project (recommend using the same name as the GitHub repository), Select <strong>pipeline</strong>, Then click <strong>OK</strong></p>
+<figure class="align-center" id="id3">
+<img alt="_images/create_pipeline.PNG" src="_images/create_pipeline.PNG" />
+<figcaption>
+<p><span class="caption-text">Create pipeline</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Select <strong>GitHub project</strong> and enter the GitHub project URL</p></li>
+<li><p>Select <strong>GitHub hook trigger for GITScm polling</strong></p></li>
+<li><p>Save</p></li>
+</ol>
+<figure class="align-center">
+<img alt="_images/jenkins_project_basic_conf.PNG" src="_images/jenkins_project_basic_conf.PNG" />
+</figure>
+</section>
+<section id="setting-up-ci-cd-pipeline">
+<h2>Setting up CI/CD pipeline<a class="headerlink" href="#setting-up-ci-cd-pipeline" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p>From the Jenkins project page, click <strong>Configure</strong></p>
+<figure class="align-center">
+<img alt="_images/project_page.PNG" src="_images/project_page.PNG" />
+</figure>
+</li>
+<li><p>Scroll down to the Pipeline section</p></li>
+<li><p>You can either provide a <a class="reference external" href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/">Jenkinsfile</a> or write a pipeline script directly in the <strong>Script</strong> box to set up the pipeline. See the <a class="reference external" href="https://www.jenkins.io/doc/book/pipeline/#declarative-pipeline-fundamentals">Declarative Pipeline fundamentals</a> for more details.</p>
+<p>Below is an example of a pipeline script which will clone a private GitHub repository, install Python dependencies from requirements.txt file, run python tests, build Sphinx documentation, and finally deploy the built Sphinx documentation to Github gh-pages branch.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="p">{</span>
+    <span class="n">agent</span> <span class="nb">any</span>
+
+    <span class="n">environment</span> <span class="p">{</span>
+        <span class="n">REMOTE_URL</span> <span class="o">=</span> <span class="s1">&#39;git@github.com:LIN810116/my-test-project.git&#39;</span>
+        <span class="n">CREDENTIAL_ID</span> <span class="o">=</span> <span class="s1">&#39;my-test-project&#39;</span>
+        <span class="n">BRANCH</span> <span class="o">=</span> <span class="s1">&#39;main&#39;</span>
+        <span class="n">USER_NAME</span> <span class="o">=</span> <span class="s1">&#39;clin864&#39;</span>
+        <span class="n">USER_EMAIL</span> <span class="o">=</span> <span class="s1">&#39;clin864@aucklanduni.ac.nz&#39;</span>
+        <span class="n">TEST_MODULE</span> <span class="o">=</span> <span class="s1">&#39;tests/test_main.py&#39;</span>
+        <span class="n">SOURCE_DIR</span> <span class="o">=</span> <span class="s1">&#39;./docs/source&#39;</span>
+        <span class="n">BUILD_DIR</span> <span class="o">=</span> <span class="s1">&#39;./docs/build&#39;</span>
+    <span class="p">}</span>
+
+    <span class="n">stages</span> <span class="p">{</span>
+        <span class="n">stage</span><span class="p">(</span><span class="s1">&#39;Setup&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">steps</span><span class="p">{</span>
+                <span class="n">echo</span> <span class="s2">&quot;Cloning GitHub repository...&quot;</span>
+                <span class="n">git</span> <span class="n">branch</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{BRANCH}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">credentialsId</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{CREDENTIAL_ID}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="s2">&quot;$</span><span class="si">{REMOTE_URL}</span><span class="s2">&quot;</span>
+                <span class="n">echo</span> <span class="s2">&quot;Creating virtual environment&quot;</span>
+                <span class="n">sh</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                    python --version</span>
+<span class="s1">                    python -m venv venv</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">stage</span><span class="p">(</span><span class="s1">&#39;Install Dependencies&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">when</span> <span class="p">{</span>
+                <span class="n">expression</span> <span class="p">{</span> <span class="k">return</span> <span class="n">fileExists</span> <span class="p">(</span><span class="s1">&#39;requirements.txt&#39;</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">steps</span> <span class="p">{</span>
+                <span class="n">echo</span> <span class="s2">&quot;Installing dependencies...&quot;</span>
+                <span class="n">sh</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                    . venv/bin/activate</span>
+<span class="s1">                    pip install --upgrade pip</span>
+<span class="s1">                    pip install -r requirements.txt</span>
+<span class="s1">                &#39;&#39;&#39;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">stage</span> <span class="p">(</span><span class="s1">&#39;Test&#39;</span><span class="p">){</span>
+            <span class="n">when</span> <span class="p">{</span>
+                <span class="n">expression</span> <span class="p">{</span> <span class="k">return</span> <span class="n">fileExists</span> <span class="p">(</span><span class="n">TEST_MODULE</span><span class="p">)</span> <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">steps</span> <span class="p">{</span>
+                <span class="n">echo</span> <span class="s2">&quot;Running tests&quot;</span>
+                <span class="n">sh</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                    . venv/bin/activate</span>
+<span class="s1">                    python -m unittest $</span><span class="si">{TEST_MODULE}</span><span class="s1"></span>
+<span class="s1">                &#39;&#39;&#39;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">stage</span><span class="p">(</span><span class="s1">&#39;Build docs&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">steps</span> <span class="p">{</span>
+                <span class="n">echo</span> <span class="s2">&quot;Building&quot;</span>
+                <span class="n">echo</span> <span class="s2">&quot;$</span><span class="si">{WORKSPACE}</span><span class="s2">&quot;</span>
+                <span class="n">sh</span> <span class="s2">&quot;$</span><span class="si">{WORKSPACE}</span><span class="s2">/venv/bin/sphinx-build -b html $</span><span class="si">{SOURCE_DIR}</span><span class="s2"> $</span><span class="si">{BUILD_DIR}</span><span class="s2">&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">stage</span><span class="p">(</span><span class="s2">&quot;Deploy Docs&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">steps</span> <span class="p">{</span>
+                <span class="n">echo</span> <span class="s2">&quot;Deploying to GitHub pages&quot;</span>
+                <span class="n">sh</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                    git config --global user.email $</span><span class="si">{USER_EMAIL}</span><span class="s1"></span>
+<span class="s1">                    git config --global user.name $</span><span class="si">{USER_NAME}</span><span class="s1"></span>
+<span class="s1">                &#39;&#39;&#39;</span>
+
+                <span class="n">sh</span> <span class="s1">&#39;npm install -g --silent gh-pages@2.1.1&#39;</span>
+                <span class="n">sh</span> <span class="s1">&#39;touch $</span><span class="si">{BUILD_DIR}</span><span class="s1">/.nojekyll&#39;</span>
+                <span class="n">sshagent</span><span class="p">(</span><span class="n">credentials</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;$</span><span class="si">{CREDENTIAL_ID}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="p">{</span>
+                    <span class="n">sh</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">                        gh-pages --dotfiles --message &#39;[skip ci] Updates&#39; --dist $</span><span class="si">{BUILD_DIR}</span><span class="s1"></span>
+<span class="s1">                    &#39;&#39;&#39;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Detailed explanations:</p>
+<ol class="arabic">
+<li><p>Environment variables:</p>
+<ul class="simple">
+<li><p><strong>REMOTE_URL</strong>: github repository URL</p></li>
+<li><p><strong>CREDENTIAL_ID</strong>: use the credential you created in <a class="reference internal" href="#adding-ssh-key"><span class="std std-ref">Adding SSH key</span></a></p></li>
+<li><p><strong>BRANCH</strong>: branch name</p></li>
+<li><p><strong>USER_NAME</strong>: Github username</p></li>
+<li><p><strong>USER_EMAIL</strong>: Github email</p></li>
+<li><p><strong>TEST_MODULE</strong>: path to the test module. see <a class="reference external" href="https://docs.python.org/3/library/unittest.html#command-line-interface">this</a> for more details about Python unittest</p></li>
+<li><p><strong>SOURCE_DIR</strong>: documentation source</p></li>
+<li><p><strong>BUILD_DIR</strong>: documentation build folder</p></li>
+</ul>
+</li>
+<li><p><strong>stage(‘Setup’)</strong>: this pipeline stage will clone the GitHub repository and create a Python virtual environment.
+Although the default Python default is 3.9.10, you can switch to other pre-installed python versions using <a class="reference external" href="https://github.com/pyenv/pyenv">pyenv</a>. see <span class="xref std std-ref">Switching Python version</span></p></li>
+<li><p><strong>stage(‘Install Dependencies’)</strong>: install Python dependencies using requirements.txt if the requirements.txt file exists in the project root</p></li>
+<li><p><strong>stage (‘Test’)</strong>: Run tests from test module</p></li>
+<li><p><strong>stage(‘Build docs’)</strong>: Build Sphinx documentation</p></li>
+<li><p><strong>stage(“Deploy Docs”)</strong>: Deploy built documentation to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch. <strong>gh-pages</strong> is a special branch for hosting your static build on Github pages (GitHub’s static contents hosting service).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Everything hosted on Github pages will be public accessible even if the repository is private.</p>
+</div>
+</li>
+</ol>
+</li>
+<li><p><strong>Apply</strong> then <strong>Save</strong></p></li>
+<li><p>Build can also be manually triggered by clicking <strong>Build Now</strong> from the Jenkins project page.</p>
+<figure class="align-center">
+<img alt="_images/build_now.PNG" src="_images/build_now.PNG" />
+</figure>
+</li>
+</ol>
+</section>
+<section id="adding-webhook-to-github-repository">
+<h2>Adding webhook to GitHub repository<a class="headerlink" href="#adding-webhook-to-github-repository" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p>From the <strong>Settings</strong> page of your GitHub repository, click <strong>Webhooks</strong> from the left menu</p></li>
+<li><p>In the <strong>Payload URL</strong> field, enter jenkins’ host URL and port number followed by <strong>/github-webhook/</strong>. E.g. <code class="docutils literal notranslate"><span class="pre">http://HOST_IP:8080/github-webhook/</span></code></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure the URL is publicly accessible. Otherwise you can still manually do the build from Jenkins instead of automatically triggered by GitHub</p>
+</div>
+</li>
+<li><p>In <strong>Content type</strong>, choose application/json</p></li>
+<li><p>In <strong>Which events would you like to trigger this webhook?</strong>, choose <strong>Let me select individual events</strong>, then select the events you want. E.g. select <strong>Pull Requests</strong> and <strong>Pushes</strong></p></li>
+<li><p>At the bottom of the page, make sure the <strong>Active</strong> option is selected</p></li>
+<li><p>Click <strong>Add webhook</strong></p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="starting_jenkins_server.html" class="btn btn-neutral float-left" title="Starting jenkins-server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chinchien Lin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

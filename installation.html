@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; jenkins-server  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Starting jenkins-server" href="starting_jenkins_server.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> jenkins-server
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="starting_jenkins_server.html">Starting jenkins-server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setting_up_automation_pipeline.html">Setting up automation pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_tutorial.html">Advanced tutorial</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">jenkins-server</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<p>The jenkins-server is pre-built and stored as a Docker image. It can now be download from Docker Hub (an online Docker image repository) <a class="reference external" href="https://hub.docker.com/repository/docker/clin864/jenkins-server">here</a>.</p>
+<p>This documentation shows how to get and install the jenkins-server Docker image.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Docker</p></li>
+</ul>
+</section>
+<section id="installation-steps">
+<h2>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p>Pull the jenkins-server Docker image from Docker Hub</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo docker pull clin864/jenkins-server
+</pre></div>
+</div>
+</li>
+</ol>
+<ol class="arabic" id="starting-jenkins-server">
+<li><p>Starting jenkins-server</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo docker run -u root -p <span class="m">8080</span>:8080 -p <span class="m">50000</span>:50000 -v jenkins_server:/var/jenkins_home clin864/jenkins-server
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the web server will be hosted on port 8080 so you can visit it via <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a>.
+You can also reset host port (-p HOST_PORT:CONTAINER_PORT) if needed.</p>
+<p>This command will automatically create a Docker volume named <code class="docutils literal notranslate"><span class="pre">jenkins_server</span></code> on the host machine if not exists.
+It is used to retain contents even when the container is stopped, restarted, or deleted.
+You can run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">volume</span> <span class="pre">inspect</span> <span class="pre">jenkins_home</span></code> to get the mountpoint of the volume in your host machine.</p>
+</div>
+</li>
+<li><p>The first time you start jenkins-server, you will see a message printed on the terminal like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Jenkins initial setup is required. An admin user has been created and a password generated.
+Please use the following password to proceed to installation:
+
+b7379465879043db8ac9d75309aa433b
+
+This may also be found at: /var/jenkins_home/secrets/initialAdminPassword
+</pre></div>
+</div>
+<p>Copy the initial password (the random string of numbers and letters)</p>
+</li>
+<li><p>Open browser and go to <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a> (or or whichever port you use in the docker run command). paste the initial password you just copied into the <strong>Administrator password</strong> field and click <strong>Continue</strong></p>
+<figure class="align-center" id="unlock-jenkins-page">
+<img alt="Unlock Jenkins page" src="_images/unlock_jenkins_page.PNG" />
+<figcaption>
+<p><span class="caption-text">Unlock Jenkins page</span><a class="headerlink" href="#unlock-jenkins-page" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>Click <strong>Install suggested plugins</strong>. Once the plugins have been installed, click <strong>Continue</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s OK if some of the plugins not installed successfully because they might not be needed. You can always install them later from the plugin management page.</p>
+</div>
+</li>
+<li><p>Create the first Admin user, then click <strong>Save and Continue</strong></p>
+<figure class="align-center" id="create-first-admin-user">
+<img alt="Create First Admin User" src="_images/create_first_admin.PNG" />
+<figcaption>
+<p><span class="caption-text">Create First Admin User</span><a class="headerlink" href="#create-first-admin-user" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</li>
+<li><p>In the <strong>Instance Configuration</strong> page, use the default settings and click <strong>Save and Finish</strong></p></li>
+<li><p>Click the <strong>Restart</strong> button to restart the server and apply the new setups</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You might need to refresh the page to be redirected to the login page</p>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="intro.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="starting_jenkins_server.html" class="btn btn-neutral float-right" title="Starting jenkins-server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Chinchien Lin.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

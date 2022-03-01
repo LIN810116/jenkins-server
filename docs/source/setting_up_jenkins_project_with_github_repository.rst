@@ -4,6 +4,8 @@ Setting up Jenkins project with GitHub repository
 
 A template repository can be downloaded from :download:`here <./_static/template-project.zip>`
 
+.. _Adding SSH key:
+
 Adding SSH key
 ==============
 
@@ -147,11 +149,16 @@ Setting up CI/CD pipeline
       * **SOURCE_DIR**: documentation source
       * **BUILD_DIR**: documentation build folder
 
-   #. **stage('Setup')**: this pipeline stage will clone the GitHub repository and create a Python virtual environment
+   #. **stage('Setup')**: this pipeline stage will clone the GitHub repository and create a Python virtual environment.
+      Although the default Python default is 3.9.10, you can switch to other pre-installed python versions using `pyenv <https://github.com/pyenv/pyenv>`_. see :ref:`Switching Python version <Switching Python version>`
    #. **stage('Install Dependencies')**: install Python dependencies using requirements.txt if the requirements.txt file exists in the project root
    #. **stage ('Test')**: Run tests from test module
    #. **stage('Build docs')**: Build Sphinx documentation
-   #. **stage("Deploy Docs")**: Deploy built documentation to the gh-pages branch. **gh-pages** is a special branch for hosting your static build on Github pages.
+   #. **stage("Deploy Docs")**: Deploy built documentation to the ``gh-pages`` branch. **gh-pages** is a special branch for hosting your static build on Github pages (GitHub's static contents hosting service).
+
+      .. important::
+
+         Everything hosted on Github pages will be public accessible even if the repository is private.
 
 #. **Apply** then **Save**
 #. Build can also be manually triggered by clicking **Build Now** from the Jenkins project page.

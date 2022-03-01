@@ -9,6 +9,7 @@ Welcome to Jenkins Server documentation!
    installation
    starting_jenkins_server
    setting_up_jenkins_project_with_github_repository
+   advanced_tutorial
 
 Indices and tables
 ==================

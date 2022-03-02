@@ -123,7 +123,6 @@ Setting up CI/CD pipeline
                             git config --global user.name ${USER_NAME}
                         '''
 
-                        sh 'npm install -g --silent gh-pages@2.1.1'
                         sh 'touch ${BUILD_DIR}/.nojekyll'
                         sshagent(credentials: ["${CREDENTIAL_ID}"]) {
                             sh '''

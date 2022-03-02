@@ -160,6 +160,10 @@ Setting up CI/CD pipeline
 
          Everything hosted on Github pages will be publicly accessible even if the repository is private.
 
+   .. important::
+
+      It's recommended to also put your pipeline script into a file named **Jenkinsfile** (no extension needed) in the repository root so that other people can use it to replicate your pipeline.
+
 #. **Apply** then **Save**
 #. The pipeline can now be triggered by clicking **Build Now** from the Jenkins project page.
    If you also want trigger the pipeline by Github events (e.g. push, merge, etc.), you need to add a `webhook <https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks>`_ to your gitHub repository (see :ref:`Adding webhook to GitHub repository <Adding webhook to GitHub repository>`)

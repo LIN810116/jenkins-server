@@ -94,18 +94,18 @@
 <h2>Creating a Jenkins project<a class="headerlink" href="#creating-a-jenkins-project" title="Permalink to this headline"></a></h2>
 <ol class="arabic">
 <li><p>From the Jenkins Dashboard, click <strong>New Item</strong></p>
-<figure class="align-center" id="id2">
+<figure class="align-center" id="id3">
 <img alt="_images/dashboard_new_item.PNG" src="_images/dashboard_new_item.PNG" />
 <figcaption>
-<p><span class="caption-text">Dashboard - new item</span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Dashboard - new item</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </li>
-<li><p>Enter a name for the project (recommend using the same name as the GitHub repository), Select <strong>pipeline</strong>, Then click <strong>OK</strong></p>
-<figure class="align-center" id="id3">
+<li><p>Enter the project name (recommend using the same name as the GitHub repository), Select <strong>pipeline</strong>, Then click <strong>OK</strong></p>
+<figure class="align-center" id="id4">
 <img alt="_images/create_pipeline.PNG" src="_images/create_pipeline.PNG" />
 <figcaption>
-<p><span class="caption-text">Create pipeline</span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+<p><span class="caption-text">Create pipeline</span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
 </figcaption>
 </figure>
 </li>
@@ -127,7 +127,7 @@
 </li>
 <li><p>Scroll down to the Pipeline section</p></li>
 <li><p>You can either provide a <a class="reference external" href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/">Jenkinsfile</a> or write a pipeline script directly in the <strong>Script</strong> box to set up the pipeline. See the <a class="reference external" href="https://www.jenkins.io/doc/book/pipeline/#declarative-pipeline-fundamentals">Declarative Pipeline fundamentals</a> for more details.</p>
-<p>Below is an example of a pipeline script which will clone a private GitHub repository, install Python dependencies from requirements.txt file, run python tests, build Sphinx documentation, and finally deploy the built Sphinx documentation to Github gh-pages branch.</p>
+<p>Below is an example of a pipeline script which will clone a private GitHub repository, install Python dependencies from requirements.txt file, run python tests, build Sphinx documentation, and finally deploy the built documentation to Github Pages (a static contents hosting service).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipeline</span> <span class="p">{</span>
     <span class="n">agent</span> <span class="nb">any</span>
 
@@ -216,7 +216,7 @@
 <ol class="arabic">
 <li><p>Environment variables:</p>
 <ul class="simple">
-<li><p><strong>REMOTE_URL</strong>: github repository URL</p></li>
+<li><p><strong>REMOTE_URL</strong>: the SSH URL of the repository</p></li>
 <li><p><strong>CREDENTIAL_ID</strong>: use the credential you created in <a class="reference internal" href="#adding-ssh-key"><span class="std std-ref">Adding SSH key</span></a></p></li>
 <li><p><strong>BRANCH</strong>: branch name</p></li>
 <li><p><strong>USER_NAME</strong>: Github username</p></li>
@@ -231,16 +231,21 @@ Although the default Python default is 3.9.10, you can switch to other pre-insta
 <li><p><strong>stage(‘Install Dependencies’)</strong>: install Python dependencies using requirements.txt if the requirements.txt file exists in the project root</p></li>
 <li><p><strong>stage (‘Test’)</strong>: Run tests from test module</p></li>
 <li><p><strong>stage(‘Build docs’)</strong>: Build Sphinx documentation</p></li>
-<li><p><strong>stage(“Deploy Docs”)</strong>: Deploy built documentation to the <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch. <strong>gh-pages</strong> is a special branch for hosting your static build on Github pages (GitHub’s static contents hosting service).</p>
+<li><p><strong>stage(“Deploy Docs”)</strong>: Deploy built documentation to GitHub Page. The build will be pushed to a special branch named <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> as the source for GitHub Pages</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Everything hosted on Github pages will be public accessible even if the repository is private.</p>
+<p>Everything hosted on Github pages will be publicly accessible even if the repository is private.</p>
 </div>
 </li>
 </ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It’s recommended to also put your pipeline script into a file named <strong>Jenkinsfile</strong> (no extension needed) in the repository root so that other people can use it to replicate your pipeline.</p>
+</div>
 </li>
 <li><p><strong>Apply</strong> then <strong>Save</strong></p></li>
-<li><p>Build can also be manually triggered by clicking <strong>Build Now</strong> from the Jenkins project page.</p>
+<li><p>The pipeline can now be triggered by clicking <strong>Build Now</strong> from the Jenkins project page.
+If you also want trigger the pipeline by Github events (e.g. push, merge, etc.), you need to add a <a class="reference external" href="https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks">webhook</a> to your gitHub repository (see <a class="reference internal" href="#adding-webhook-to-github-repository"><span class="std std-ref">Adding webhook to GitHub repository</span></a>)</p>
 <figure class="align-center">
 <img alt="_images/build_now.PNG" src="_images/build_now.PNG" />
 </figure>
@@ -248,7 +253,7 @@ Although the default Python default is 3.9.10, you can switch to other pre-insta
 </ol>
 </section>
 <section id="adding-webhook-to-github-repository">
-<h2>Adding webhook to GitHub repository<a class="headerlink" href="#adding-webhook-to-github-repository" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2>Adding webhook to GitHub repository<a class="headerlink" href="#adding-webhook-to-github-repository" title="Permalink to this headline"></a></h2>
 <ol class="arabic">
 <li><p>From the <strong>Settings</strong> page of your GitHub repository, click <strong>Webhooks</strong> from the left menu</p></li>
 <li><p>In the <strong>Payload URL</strong> field, enter jenkins’ host URL and port number followed by <strong>/github-webhook/</strong>. E.g. <code class="docutils literal notranslate"><span class="pre">http://HOST_IP:8080/github-webhook/</span></code></p>

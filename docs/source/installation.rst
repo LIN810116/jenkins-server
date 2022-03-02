@@ -20,8 +20,7 @@ Installation steps
 
       sudo docker pull clin864/jenkins-server
 
-
-.. _Starting jenkins-server:
+   .. _Starting jenkins-server:
 
 #. Starting jenkins-server
 

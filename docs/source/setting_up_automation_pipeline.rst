@@ -23,7 +23,7 @@ Creating a Jenkins project
 
       Dashboard - new item
 
-#. Enter a name for the project (recommend using the same name as the GitHub repository), Select **pipeline**, Then click **OK**
+#. Enter the project name (recommend using the same name as the GitHub repository), Select **pipeline**, Then click **OK**
 
    .. figure:: ./_static/images/create_pipeline.PNG
       :align: center
@@ -49,7 +49,7 @@ Setting up CI/CD pipeline
 #. Scroll down to the Pipeline section
 #. You can either provide a `Jenkinsfile <https://www.jenkins.io/doc/book/pipeline/jenkinsfile/>`_ or write a pipeline script directly in the **Script** box to set up the pipeline. See the `Declarative Pipeline fundamentals <https://www.jenkins.io/doc/book/pipeline/#declarative-pipeline-fundamentals>`_ for more details.
 
-   Below is an example of a pipeline script which will clone a private GitHub repository, install Python dependencies from requirements.txt file, run python tests, build Sphinx documentation, and finally deploy the built Sphinx documentation to Github gh-pages branch.
+   Below is an example of a pipeline script which will clone a private GitHub repository, install Python dependencies from requirements.txt file, run python tests, build Sphinx documentation, and finally deploy the built documentation to Github Pages (a static contents hosting service).
 
    .. code-block::
 
@@ -140,7 +140,7 @@ Setting up CI/CD pipeline
 
    #. Environment variables:
 
-      * **REMOTE_URL**: github repository URL
+      * **REMOTE_URL**: the SSH URL of the repository
       * **CREDENTIAL_ID**: use the credential you created in :ref:`Adding SSH key`
       * **BRANCH**: branch name
       * **USER_NAME**: Github username
@@ -154,17 +154,20 @@ Setting up CI/CD pipeline
    #. **stage('Install Dependencies')**: install Python dependencies using requirements.txt if the requirements.txt file exists in the project root
    #. **stage ('Test')**: Run tests from test module
    #. **stage('Build docs')**: Build Sphinx documentation
-   #. **stage("Deploy Docs")**: Deploy built documentation to the ``gh-pages`` branch. **gh-pages** is a special branch for hosting your static build on Github pages (GitHub's static contents hosting service).
+   #. **stage("Deploy Docs")**: Deploy built documentation to GitHub Page. The build will be pushed to a special branch named ``gh-pages`` as the source for GitHub Pages
 
       .. important::
 
-         Everything hosted on Github pages will be public accessible even if the repository is private.
+         Everything hosted on Github pages will be publicly accessible even if the repository is private.
 
 #. **Apply** then **Save**
-#. Build can also be manually triggered by clicking **Build Now** from the Jenkins project page.
+#. The pipeline can now be triggered by clicking **Build Now** from the Jenkins project page.
+   If you also want trigger the pipeline by Github events (e.g. push, merge, etc.), you need to add a `webhook <https://docs.github.com/en/developers/webhooks-and-events/webhooks/about-webhooks>`_ to your gitHub repository (see :ref:`Adding webhook to GitHub repository <Adding webhook to GitHub repository>`)
 
    .. figure:: ./_static/images/build_now.PNG
       :align: center
+
+.. _Adding webhook to GitHub repository:
 
 Adding webhook to GitHub repository
 ===================================

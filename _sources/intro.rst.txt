@@ -10,6 +10,8 @@ It allows you to run not only automation jobs, but also the continuous integrati
 
 
 .. figure:: ./_static/images/jenkins_pipeline.png
+      :name: Jenkins pipeline
       :align: center
+      :alt: Jenkins pipeline
 
       Jenkins pipeline

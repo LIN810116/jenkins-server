@@ -52,7 +52,7 @@ Installation steps
 
 #. Open browser and go to http://localhost:8080/ (or or whichever port you use in the docker run command). paste the initial password you just copied into the **Administrator password** field and click **Continue**
 
-   .. figure:: ./_static/images/unlock_jenkins_page.PNG
+   .. figure:: ./_static/images/unlock_jenkins_page.png
       :name: Unlock Jenkins page
       :align: center
       :alt: Unlock Jenkins page
